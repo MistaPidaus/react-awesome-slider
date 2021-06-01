@@ -55,6 +55,7 @@ export default class AwesomeSlider extends React.Component {
     style: PropTypes.object,
     transitionDelay: PropTypes.number,
     mobileTouch: PropTypes.bool,
+    customButtonGroup: PropTypes.func,
   };
 
   static defaultProps = {
@@ -89,6 +90,7 @@ export default class AwesomeSlider extends React.Component {
     style: {},
     transitionDelay: 0,
     mobileTouch: true,
+    customButtonGroup: null,
   };
 
   constructor(props) {
@@ -380,7 +382,7 @@ export default class AwesomeSlider extends React.Component {
   }
 
   startBarAnimation({ active }) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.bar = this.getProgressBar();
       active.appendChild(this.bar);
       onceNextCssLayout().then(() => {
@@ -453,7 +455,7 @@ export default class AwesomeSlider extends React.Component {
 
   checkLoadedUrls(urls) {
     let loaded = true;
-    urls.forEach(url => {
+    urls.forEach((url) => {
       if (!this.loaded.includes(url)) {
         loaded = false;
       }
@@ -585,7 +587,7 @@ export default class AwesomeSlider extends React.Component {
     callback,
     transitionDelay,
   }) {
-    this.loadContent(active, media).then(bar => {
+    this.loadContent(active, media).then((bar) => {
       classListAdd(activeContentElement, contentExitMoveClass);
       classListAdd(activeContentElement, this.classNames.contentExit);
       classListAdd(loaderContentElement, contentEnterMoveClass);
@@ -724,7 +726,7 @@ export default class AwesomeSlider extends React.Component {
       return;
     }
     this.activateArrows(direction, () => {
-      this.chargeIndex(nextIndex, media => {
+      this.chargeIndex(nextIndex, (media) => {
         this.renderedLoader = true;
         this.startAnimation(direction, media, ({ release = true }) => {
           this.index = this.nextIndex;
@@ -832,7 +834,7 @@ export default class AwesomeSlider extends React.Component {
     });
   };
 
-  touchStart = event => {
+  touchStart = (event) => {
     if (this.animating) {
       return;
     }
@@ -843,7 +845,7 @@ export default class AwesomeSlider extends React.Component {
     this.touchStartPoint = native.touches[0].clientX;
   };
 
-  touchMove = event => {
+  touchMove = (event) => {
     if (this.animating || !this.touchStartPoint) {
       return;
     }
@@ -907,9 +909,16 @@ export default class AwesomeSlider extends React.Component {
     });
   };
 
-  bulletClick = event => {
+  bulletClick = (event) => {
     const button = event.currentTarget;
     const index = parseInt(button.getAttribute('data-index'), 10);
+
+    if (!button || !index) {
+      throw new Error(
+        'Missing `key` and `data-index` prop in the bullet button array'
+      );
+    }
+
     this.goTo(
       {
         index,
@@ -935,7 +944,7 @@ export default class AwesomeSlider extends React.Component {
 
     return (
       <div
-        ref={el => {
+        ref={(el) => {
           this[`box${box}`] = el;
         }}
         className={this.classNames.box}
@@ -961,25 +970,26 @@ export default class AwesomeSlider extends React.Component {
       buttons,
       buttonContentLeft,
       buttonContentRight,
+      customButtonGroup,
     } = this.props;
     const { rootElement } = this;
 
     return (
       <div
-        ref={slider => {
+        ref={(slider) => {
           this.slider = slider;
         }}
         className={this.getRootClassName()}
         style={style}
       >
         <div
-          ref={wrapper => {
+          ref={(wrapper) => {
             this.wrapper = wrapper;
           }}
           className={this.classNames.wrapper}
         >
           <div
-            ref={container => {
+            ref={(container) => {
               this.container = container;
             }}
             className={this.classNames.container}
@@ -991,7 +1001,7 @@ export default class AwesomeSlider extends React.Component {
             <Buttons
               rootElement={rootElement}
               cssModule={mergeStyles(cssModule)}
-              onMount={btns => {
+              onMount={(btns) => {
                 this.buttons = btns;
               }}
               onNext={this.clickNext}
@@ -1003,13 +1013,23 @@ export default class AwesomeSlider extends React.Component {
           )}
           {customContent}
         </div>
+
+        {customButtonGroup &&
+          React.cloneElement(customButtonGroup, {
+            next: () => this.clickNext(),
+            prev: () => this.clickPrev(),
+            bulletClick: (e) => this.bulletClick(e),
+            selected: this.state.index,
+            items: this.media,
+          })}
+
         {bullets && (
           <Bullets
             cssModule={mergeStyles(cssModule)}
             rootElement={rootElement}
             media={this.media}
             selected={this.state.index}
-            onClick={info => {
+            onClick={(info) => {
               this.onTransitionRequest('bullet', info.index);
               this.goTo(info);
             }}

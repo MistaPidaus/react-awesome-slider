@@ -18,11 +18,20 @@ declare module 'react-awesome-slider' {
     nextIndex: number;
   }
 
-  export interface AwesomeSliderStartEventArgs extends AwesomeSliderRequestEventArgs {
+  export interface AwesomeSliderStartEventArgs
+    extends AwesomeSliderRequestEventArgs {
     nextSlide: HTMLElement;
     nextMedia: React.ReactNode;
   }
-  
+
+  export interface AwesomeSliderCustomButtonGroup {
+    next: () => void;
+    prev: () => void;
+    bulletClick: (e: Event) => void;
+    selected: number;
+    items: any;
+  }
+
   export interface AwesomeSliderProps {
     activityColor?: string;
     animation?: string;
@@ -56,6 +65,7 @@ declare module 'react-awesome-slider' {
     style?: object;
     transitionDelay?: number;
     mobileTouch?: boolean;
+    customButtonGroup?(e: AwesomeSliderCustomButtonGroup): React.ReactNode;
   }
 
   export default class AwesomeSlider extends Component<

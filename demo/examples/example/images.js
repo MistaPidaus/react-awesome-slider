@@ -8,7 +8,7 @@ import { GeneralContext } from 'context/GeneralContext';
 import { features, properties, globalProps } from 'examples/common';
 
 function onFirstMount(slider) {
-  resetSlider(slider, function() {
+  resetSlider(slider, function () {
     slider.element.style.setProperty(
       '--transition-bezier',
       'cubic-bezier(0.45, 0, 0.2, 1)'
@@ -23,10 +23,35 @@ const startupScreen = (
   </div>
 );
 
+const Test = (props) => {
+  const { next, prev, items, bulletClick, selected } = props;
+  return (
+    <div>
+      <button onClick={next}>Next</button>
+      <button onClick={prev}>Prev</button>
+      {items.map((i, index) => (
+        <button
+          style={{
+            height: '16px',
+            width: '16px',
+            backgroundColor: selected === index ? 'pink' : 'green',
+            borderRadius: '100%',
+            margin: '4px',
+            display: 'inline-block',
+          }}
+          key={`bullet-${index}`}
+          data-index={index}
+          onClick={bulletClick}
+        />
+      ))}
+    </div>
+  );
+};
+
 function Component({ startup }) {
   return (
     <GeneralContext.Consumer>
-      {context => {
+      {(context) => {
         return (
           <AwesomeFrame
             cssModule={AwsFrameStyles}
@@ -44,6 +69,7 @@ function Component({ startup }) {
               organicArrows={context.general['--organicArrows']}
               bullets={context.general['--bullets']}
               fillParent={context.general['--fillParent']}
+              customButtonGroup={<Test />}
             >
               <div
                 data-slug="this-is-zero"
