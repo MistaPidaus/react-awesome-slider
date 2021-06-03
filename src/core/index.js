@@ -994,7 +994,7 @@ export default class AwesomeSlider extends React.Component {
         }
         // drag from right to left
         active.style.transform = `translate3d(${diff}px, 0, 0)`;
-        loader.style.transform = `translate3d(calc(100% + ${diff}px), 0, 0)`;
+        // loader.style.transform = `translate3d(calc(100% + ${diff}px), 0, 0)`;
 
         // container
         container.style.transform = `translate3d(${diff}px, 0, 0)`;
@@ -1010,7 +1010,7 @@ export default class AwesomeSlider extends React.Component {
 
         //  drag from left to right
         active.style.transform = `translate3d(${diff}px, 0, 0)`;
-        loader.style.transform = `translate3d(calc(-100% + ${diff}px), 0, 0)`;
+        // loader.style.transform = `translate3d(calc(-100% + ${diff}px), 0, 0)`;
 
         // container
         container.style.transform = `translate3d(${diff}px, 0, 0)`;
