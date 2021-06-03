@@ -25,11 +25,11 @@ declare module 'react-awesome-slider' {
   }
 
   export interface AwesomeSliderCustomButtonGroup {
-    next: () => void;
-    prev: () => void;
-    bulletClick: (e?: MouseEventHandler<HTMLButtonElement>) => void;
-    selected: number;
-    items: number;
+    next?: () => void;
+    prev?: () => void;
+    bulletClick?: (e?: MouseEventHandler<HTMLButtonElement>) => void;
+    selected?: number;
+    items?: number;
   }
 
   export interface AwesomeSliderProps {
@@ -65,7 +65,7 @@ declare module 'react-awesome-slider' {
     style?: object;
     transitionDelay?: number;
     mobileTouch?: boolean;
-    customButtonGroup?(props: AwesomeSliderCustomButtonGroup): React.ReactNode;
+    customButtonGroup?: React.ReactElement<AwesomeSliderCustomButtonGroup> | null;
   }
 
   export default class AwesomeSlider extends Component<
