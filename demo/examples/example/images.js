@@ -29,7 +29,7 @@ const Test = (props) => {
     <div>
       <button onClick={next}>Next</button>
       <button onClick={prev}>Prev</button>
-      {items.map((i, index) => (
+      {new Array(items).fill(0).map((i, index) => (
         <button
           style={{
             height: '16px',
