@@ -6,7 +6,7 @@ export const classListAdd = (element, classString) => {
   if (typeof classString !== 'string' || !element) {
     return;
   }
-  classString.split(' ').forEach(className => {
+  classString.split(' ').forEach((className) => {
     element.classList.add(className);
   });
 };
@@ -15,12 +15,12 @@ export const classListRemove = (element, classString) => {
   if (typeof classString !== 'string' || !element) {
     return;
   }
-  classString.split(' ').forEach(className => {
+  classString.split(' ').forEach((className) => {
     element.classList.remove(className);
   });
 };
 
-export const getAnyClassName = className => {
+export const getAnyClassName = (className) => {
   if (typeof className === 'string') {
     const cls = className.split(' ');
     return cls[0] || '';
@@ -28,7 +28,7 @@ export const getAnyClassName = className => {
   return '';
 };
 
-export const mergeStyles = styles => {
+export const mergeStyles = (styles) => {
   const local = !Array.isArray(styles) ? [styles] : styles;
   if (local.length === 1) {
     return local[0];
@@ -90,17 +90,14 @@ export function getRootClassName({
   if (className) {
     classNames.push(...className.split(' '));
   }
-  return classNames
-    .join(' ')
-    .trim()
-    .replace(/[\s]+/gi, ' ');
+  return classNames.join(' ').trim().replace(/[\s]+/gi, ' ');
 }
 
 export function transformChildren(children) {
   const media = [];
   const items = children.constructor === Array ? children : [children];
 
-  items.forEach(child => {
+  items.forEach((child) => {
     const item = {
       ...child.props,
     };
@@ -135,6 +132,14 @@ export function setupClassNames(rootElement, cssModule) {
       `${rootElement}__content--moveRight`,
       cssModule
     ),
+    containerFlexLeft: getClassName(
+      `${rootElement}__content--flexLeft`,
+      cssModule
+    ),
+    containerFlexRight: getClassName(
+      `${rootElement}__content--flexRight`,
+      cssModule
+    ),
     controlsHidden: getClassName(`${rootElement}__controls--hidden`, cssModule),
     controlsActive: getClassName(`${rootElement}__controls--active`, cssModule),
     animated: getClassName(`${rootElement}--animated`, cssModule),
@@ -144,6 +149,8 @@ export function setupClassNames(rootElement, cssModule) {
     active: getClassName(`${rootElement}--active`, cssModule),
     moveLeft: getClassName(`${rootElement}--moveLeft`, cssModule),
     moveRight: getClassName(`${rootElement}--moveRight`, cssModule),
+    flexLeft: getClassName(`${rootElement}--flexLeft`, cssModule),
+    flexRight: getClassName(`${rootElement}--flexRight`, cssModule),
     startUp: getClassName(`${rootElement}__startUp`, cssModule),
     bulletsLoading: getClassName(`${rootElement}__bullets--loading`, cssModule),
   };
