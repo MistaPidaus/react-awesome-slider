@@ -55,7 +55,7 @@ export default class AwesomeSlider extends React.Component {
     style: PropTypes.object,
     transitionDelay: PropTypes.number,
     mobileTouch: PropTypes.bool,
-    customButtonGroup: PropTypes.func,
+    customButtonGroup: PropTypes.node,
   };
 
   static defaultProps = {
@@ -579,6 +579,7 @@ export default class AwesomeSlider extends React.Component {
     media,
     contentExitMoveClass,
     contentEnterMoveClass,
+    containerElement,
     activeContentElement,
     loaderContentElement,
     loader,
@@ -913,7 +914,7 @@ export default class AwesomeSlider extends React.Component {
     const button = event.currentTarget;
     const index = parseInt(button.getAttribute('data-index'), 10);
 
-    if (!button || !index) {
+    if (!button || isNaN(index)) {
       throw new Error(
         'Missing `key` and `data-index` prop in the bullet button array'
       );
@@ -1020,7 +1021,7 @@ export default class AwesomeSlider extends React.Component {
             prev: () => this.clickPrev(),
             bulletClick: (e) => this.bulletClick(e),
             selected: this.state.index,
-            items: this.media,
+            items: this.media.length,
           })}
 
         {bullets && (
