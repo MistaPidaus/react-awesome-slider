@@ -171,7 +171,7 @@
     z-index: 2;
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0); }
-  .awssld--moveRight, .awssld--moveLeft {
+  .awssld--moveRight, .awssld--moveLeft, .awssld--flexRight, .awssld--flexLeft {
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden; }
   .awssld--moveRight {
@@ -180,6 +180,12 @@
   .awssld--moveLeft {
     -webkit-animation: slideFromLeft var(--slider-transition-duration) both var(--transition-bezier);
             animation: slideFromLeft var(--slider-transition-duration) both var(--transition-bezier); }
+  .awssld--flexRight {
+    -webkit-animation: flexToRight var(--slider-transition-duration) both var(--transition-bezier);
+            animation: flexToRight var(--slider-transition-duration) both var(--transition-bezier); }
+  .awssld--flexLeft {
+    -webkit-animation: flexToLeft var(--slider-transition-duration) both var(--transition-bezier);
+            animation: flexToLeft var(--slider-transition-duration) both var(--transition-bezier); }
   .awssld--exit {
     z-index: 0; }
     .awssld--exit.awssld--moveLeft {
@@ -428,4 +434,36 @@
   to {
     -webkit-transform: translate3d(100%, 0, 0);
             transform: translate3d(100%, 0, 0); } }
+
+@-webkit-keyframes flexToLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0); }
+  to {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0); } }
+
+@keyframes flexToLeft {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0); }
+  to {
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0); } }
+
+@-webkit-keyframes flexToRight {
+  from {
+    -webkit-transform: translate3d(-100, 0, 0);
+            transform: translate3d(-100, 0, 0); }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0); } }
+
+@keyframes flexToRight {
+  from {
+    -webkit-transform: translate3d(-100, 0, 0);
+            transform: translate3d(-100, 0, 0); }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0); } }
 
