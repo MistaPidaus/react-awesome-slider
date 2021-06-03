@@ -992,10 +992,12 @@ export default class AwesomeSlider extends React.Component {
         } else if (diff > 0) {
           diff = 0;
         }
-        // to left
+        // drag from right to left
         active.style.transform = `translate3d(${diff}px, 0, 0)`;
         loader.style.transform = `translate3d(calc(100% + ${diff}px), 0, 0)`;
-        // container.style.transform = `translate3d(calc(100% + ${diff}px), 0, 0)`;
+
+        // container
+        container.style.transform = `translate3d(${diff}px, 0, 0)`;
         // console.log('active =>', active);
         // console.log('container =>', container);
       } else {
@@ -1006,9 +1008,13 @@ export default class AwesomeSlider extends React.Component {
           diff = 0;
         }
 
-        // to right
+        //  drag from left to right
         active.style.transform = `translate3d(${diff}px, 0, 0)`;
         loader.style.transform = `translate3d(calc(-100% + ${diff}px), 0, 0)`;
+
+        // container
+        container.style.transform = `translate3d(${diff}px, 0, 0)`;
+
         // console.log('active =>', active);
         // console.log('container =>', container);
       }
